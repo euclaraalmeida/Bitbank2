@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -21,6 +23,7 @@ public class AuthController {
 
     @Autowired
     private CorrentistaService correntistaService;
+    
     
     @GetMapping("/auth")
     public String Authention(Model model) {
@@ -38,6 +41,13 @@ public class AuthController {
         return "redirect:/home";
        }
        flash.addFlashAttribute("mensagem erro", "correntista nao encontrado ou email/senha invalidos");
+        return "redirect:/auth";
+    }
+    
+
+    @PostMapping("/logout")
+    public String postMethodName( HttpSession session ) {
+        session.removeAttribute("user logado");
         return "redirect:/auth";
     }
     

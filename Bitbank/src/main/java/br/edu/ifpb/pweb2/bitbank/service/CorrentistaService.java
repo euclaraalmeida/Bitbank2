@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.bitbank.service;
 
+import java.net.PasswordAuthentication;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,16 @@ import org.springframework.stereotype.Component;
 
 import br.edu.ifpb.pweb2.bitbank.model.Correntista;
 import br.edu.ifpb.pweb2.bitbank.repository.CorrentistaRepository;
+import br.edu.ifpb.pweb2.bitbank.util.PasswordUtil;
 
-@Component
+@org.springframework.stereotype.Service
 public class CorrentistaService implements Service<Correntista, Integer>{
 
     @Autowired
     private CorrentistaRepository correntistaRepository;
+
+    @Autowired
+    private PasswordUtil passwordUtil;
 
     @Override
     public List<Correntista> findAll() {
@@ -35,7 +40,9 @@ public class CorrentistaService implements Service<Correntista, Integer>{
 
         Correntista correntista_encontrado = correntistaRepository.findbyEmail(email);
 
-        if (correntista_encontrado != null && correntista_encontrado.getEmail().equals(email) && correntista_encontrado.getSenha().equals(senha)){
+        String senha_cifrada = passwordUtil.hashPassword(senha);
+
+        if (correntista_encontrado != null && correntista_encontrado.getEmail().equals(email) && correntista_encontrado.getSenha().equals(senha_cifrada)){
             return correntista_encontrado;
         }
         return null;

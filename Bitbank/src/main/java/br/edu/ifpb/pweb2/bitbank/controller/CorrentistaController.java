@@ -1,5 +1,7 @@
 package br.edu.ifpb.pweb2.bitbank.controller;
 
+import java.net.PasswordAuthentication;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.bitbank.model.Correntista;
 import br.edu.ifpb.pweb2.bitbank.service.CorrentistaService;
+import br.edu.ifpb.pweb2.bitbank.util.PasswordUtil;
 
 @Controller
 @RequestMapping("/correntistas")
@@ -18,6 +21,9 @@ public class CorrentistaController {
 
     @Autowired
     private CorrentistaService correntistaService;
+
+    @Autowired
+    private PasswordUtil passwordUtil;
 
     
     @GetMapping("/form")
@@ -28,6 +34,7 @@ public class CorrentistaController {
 
     @PostMapping
     public String save(Correntista correntista, Model model, RedirectAttributes redirectAttributes) {
+        correntista.setSenha(passwordUtil.hashPassword(correntista.getSenha()));
         correntistaService.save(correntista);
         model.addAttribute("correntistas", correntistaService.findAll());
         redirectAttributes.addFlashAttribute("mensagem", "Corerntita cadastrado com sucesso");

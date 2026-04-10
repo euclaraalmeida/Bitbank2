@@ -10,7 +10,7 @@ import br.edu.ifpb.pweb2.bitbank.model.Correntista;
 import br.edu.ifpb.pweb2.bitbank.repository.ContaRepository;
 import br.edu.ifpb.pweb2.bitbank.repository.CorrentistaRepository;
 
-@Component
+@org.springframework.stereotype.Service
 public class ContaService implements Service<Conta, Integer> {
 
     @Autowired

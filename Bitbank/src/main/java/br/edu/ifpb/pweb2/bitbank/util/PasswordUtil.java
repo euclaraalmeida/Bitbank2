@@ -1,8 +1,6 @@
 package br.edu.ifpb.pweb2.bitbank.util;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.stereotype.Component;
 
-@Component
 public abstract class PasswordUtil {
     public static String hashPassword(String plainTextPassword) {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());

@@ -10,6 +10,14 @@
 
     <h1>Bitbank no ar!</h1>
 
+    <div class = "user-info">
+        <span th:if = "${session.usuario!=null}" th:text="${session.usuario.email}"></span>
+        <a th:href = "@{/auth/logout}">
+           <button class = "logout-button"> sair</button>
+
+    </div>
+
+
 </body>
 
 </html>

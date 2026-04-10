@@ -22,8 +22,6 @@ public class CorrentistaController {
     @Autowired
     private CorrentistaService correntistaService;
 
-    @Autowired
-    private PasswordUtil passwordUtil;
 
     
     @GetMapping("/form")
@@ -34,7 +32,7 @@ public class CorrentistaController {
 
     @PostMapping
     public String save(Correntista correntista, Model model, RedirectAttributes redirectAttributes) {
-        correntista.setSenha(passwordUtil.hashPassword(correntista.getSenha()));
+        correntista.setSenha(PasswordUtil.hashPassword(correntista.getSenha()));
         correntistaService.save(correntista);
         model.addAttribute("correntistas", correntistaService.findAll());
         redirectAttributes.addFlashAttribute("mensagem", "Corerntita cadastrado com sucesso");
